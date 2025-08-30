@@ -31,6 +31,11 @@
 .products-item{
     display: grid;
 }
+.product-item{
+    display: flex;
+    justify-content: flex-start;
+    align-items: start;
+}
 .product-item__image{
     overflow: hidden;
 }
@@ -49,4 +54,10 @@
     justify-content: space-between;
     align-items: center;
     gap: 5px;
+}
+.category-item__image{
+    width: 25px;
+    display: flex;;
+    justify-content: center;
+    align-items: center;
 }

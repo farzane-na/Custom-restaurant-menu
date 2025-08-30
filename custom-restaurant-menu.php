@@ -72,6 +72,12 @@ function menu_item_stylesheet() {
         [],
         '1.0.0'
     );
+    wp_register_script(
+        'menu-item-script',
+        plugin_dir_url(__FILE__) . 'assets/js/app.js',
+        '1.0.0',
+        true
+    );
 }
 add_action('wp_enqueue_scripts', 'menu_item_stylesheet');
 

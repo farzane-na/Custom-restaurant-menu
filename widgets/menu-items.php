@@ -6,24 +6,22 @@ use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Responsive;
-use Elementor\Group_Control_Box_Shado;
 use Elementor\Utils;
 use Elementor\Scheme_Typography;
 use Elementor\Scheme_Color;
-use Elementor\Repeate;
 use Elementor\Controls_Stack;
 use Elementor\Base\Data_Control;
 use Elementor\Plugin;
 use Elementor\Frontend;
 use Elementor\Editor;
-use Elementor\Element_Bas;
+use Elementor\Element_Base;
 use Elementor\Group_Control_Css_Filter;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-Class Menu_Items_Widget extends Elemetor\Widget_Base{
+class Menu_Items_Widget extends Elementor\Widget_Base{
     public function get_name() {
         return 'menu_items';
     }
@@ -31,23 +29,23 @@ Class Menu_Items_Widget extends Elemetor\Widget_Base{
         return esc_html__('Menu Items','restaurant-menu');
     }
     public function get_icon() {
-        return 'data:image/svg+xml;utf8,<svg width="800px" height="800px" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--noto" preserveAspectRatio="xMidYMid meet"><path d="M20.24 47.26s-5.48 3.45-6.11 6.89c-.63 3.45.63 7.52 2.35 10.18s3.76 4.86 6.27 5.8s4.7.78 4.7.78s5.8 6.58 16.13 15.51S67.08 106 81.96 114.3s20.21 10.34 24.28 10.34s3.92-6.11 3.45-7.99s-26.63-31.01-26.63-31.01L20.24 47.26z" fill="#ff8e00"></path><path d="M31.21 62.46l-3.92-4.23s-4.07-7.68-7.83-7.68s-5.33 3.6-5.33 3.6s-.47-3.92 4.23-11.43s10.65-13.47 15.98-17.23s11.9-8.15 16.29-10.65S64.57 9.2 70.06 7.32c5.48-1.88 17.39-4.23 22.87-3.13c5.48 1.1 7.83 4.86 7.83 8.77s-.94 6.58-1.72 7.36s-5.95 5.17-5.95 5.17L31.21 62.46z" fill="#f5b03e"></path><path d="M42.2 45.95l-9.71 6.27l-4.07 7.99s.78 2.66 2.04 4.07c1.25 1.41 11.74 11.46 19.25 17.88c5.86 5.01 18.35 15.64 18.35 15.64s.51 5.34 1.1 9.09c.47 2.98.5 7.95 3.64 7.81c3.96-.18 1.68-8.2 4.82-8.12c6.27.16.05 17.12 6.79 17.03c5.37-.07 1.96-9.34 4.65-10.92c1.46-.86 4.36 2.79 9.09 4.86c5.84 2.55 9.4 4.48 11.28 3.6c3.97-1.86-4.4-45.23-5.34-52.59c-.94-7.36-5.62-45.16-5.94-46.41s-6.74-1.41-6.74-1.41l-9.87 3.45l-14.1 1.88l-16.6 9.87l-8.64 10.01z" fill="#ffcc8a"></path><path d="M39.75 44.38c-3.08 1.74-7.05 2.71-10.4 8.23c-2.79 4.6-3.53 9.31-1.54 9.67c1.99.36 3.5-6.58 6.15-9.22c4.25-4.25 7.69-4.7 10.13-6.96s5.11-8.4 15.28-13.83c11.85-6.33 18.93-4.66 21.7-5.7c3.62-1.36 4.6-3.58 9.13-4.52c4.79-.99 8.12.92 8.12.92s1.09-2.53-.36-3.71c-1.45-1.18-4.12-2.1-8.58-1.19c-4.88.99-8.5 4.25-9.49 4.34s-11.12-.45-23.15 6.42s-14.28 14.01-16.99 15.55z" fill="#cb6c22"></path><path d="M53.58 55.32L37.4 58.85s-.25 3.07-.09 3.98c.54 3.07 4.61 7.96 7.05 8.77s7.41.9 9.04.18c1.63-.72 6.51-4.25 7.14-6.15c.63-1.9.46-9.85-.8-11.12c-1.26-1.26-6.16.81-6.16.81z" fill="#db0d27"></path><path d="M42.19 50.26c-1.73 1.34-5.06 5.88-4.79 9.13c.27 3.26 5.88 8.95 7.41 9.49s6.51.63 7.78.27s6.15-3.98 6.87-5.24c.72-1.27 1.36-8.32.18-9.58s-4.7-4.97-7.5-5.79c-2.81-.81-8.32.45-9.95 1.72z" fill="#ed6d30"></path><path d="M83.6 65.45s-14.32-1.03-14.5-.13s-.51 4.38.4 7.18c.64 1.99 2.17 5.43 6.87 7.41s9.22-.18 10.4-1.09c2.21-1.7 3.62-3.8 3.98-5.06c.36-1.26-7.15-8.31-7.15-8.31z" fill="#db0d27"></path><path d="M76.64 57.94c-2.21.8-7.5 4.07-7.6 7.69c-.09 3.62 2.53 8.05 3.89 9.04s5.88 3.62 9.22 3.44c3.35-.18 7.96-2.89 8.59-4.34c.63-1.45.9-5.7.63-7.87s-4.97-7.05-7.32-7.78c-2.35-.72-5.42-.9-7.41-.18z" fill="#ed6d30"></path><path d="M76.1 91.76s-13.11-3.62-13.29-3.35c-.18.27-1.99 2.53-1.54 3.62c.45 1.09 5.06 4.79 6.96 6.42c1.9 1.63 7.64 5 8.32 4.88c1.63-.27 2.89-2.89 2.89-2.89l-3.34-8.68z" fill="#db0d27"></path><path d="M77.27 86.24c-3.2-2.35-7.87-2.17-10.4-.99c-2.53 1.18-4.07 2.71-4.34 3.89c-.27 1.18 1.82 3.45 2.64 4.08c.81.63 3.27 2.49 3.27 2.49s3.65 2.86 5 3.9c1.88 1.45 4.24 2.27 4.87 2.36c.63.09 3.57-3.71 3.03-8.78c-.28-2.59-1.38-4.97-4.07-6.95z" fill="#ed6d30"></path><path d="M100.06 79.01l-4.88-.18s-1.99 3.71-.63 7.87c1.11 3.4 3.44 5.43 7.32 6.51c3.89 1.09 6.06.7 6.06.7l.06-2.73l-7.93-12.17z" fill="#db0d27"></path><path d="M104.76 72.77s-6.02-.71-9.13 4.88c-2.38 4.29-.72 7.87 1.18 9.95c1.9 2.08 4.79 3.44 6.96 3.62s4.27.01 4.27.01s-.84-5.55-1.66-10.19c-.5-2.78-1.62-8.27-1.62-8.27z" fill="#ed6d30"></path><path d="M87.22 33.62s-11.66.36-12.39 1.54s-.72 6.42-.36 8.5s3.53 7.14 9.86 7.23c6.33.09 8.56-1.49 11.02-6.27c2.46-4.78-.1-10.13-.1-10.13l-8.03-.87z" fill="#db0d27"></path><path d="M87.31 28.28c-2.53-.49-6.06.54-7.78 1.72c-1.72 1.18-4.52 3.62-4.7 5.43c-.18 1.81 1.45 7.05 2.08 8.05c.63.99 3.25 3.68 4.07 4.07c1.9.9 7.14.45 8.68-.09s5.79-3.98 6.24-5.79s.99-4.88-1.09-8.59s-5.15-4.34-7.5-4.8z" fill="#ed6d30"></path><path d="M103.78 104.17l-10.41-.45s-1.4 2.81-.98 5.27c.34 2.04 2.03 4.82 5.06 5.99c1.72.66 6.22.23 7.32-.52c2.22-1.52 2.93-4.28 2.86-5.7c-.03-.74-3.85-4.59-3.85-4.59z" fill="#db0d27"></path><path d="M101.51 99.75c-2.7-.41-5.81 1.05-7.15 2.44c-1.34 1.39-1.61 3.13-1.1 5.23c.93 3.84 3.39 4.93 4.53 5.52c1.69.87 6.33.7 7.79-.41c1.45-1.1 2.55-2.98 2.21-5.87c-.35-2.9-1.63-6.21-6.28-6.91z" fill="#ed6d30"></path><path d="M36 31.03c.09 2.16 3.87 1.79 5.36 1.64c1.19-.12 4.17-.37 4.17-2.31s-2.6-1.93-4.54-1.86c-1.87.07-5.07.82-4.99 2.53z" fill="#fcc12b"></path><path d="M56.31 18.31c0 1.42 1.56 1.56 2.53 1.64c.97.07 2.23-.3 2.31-1.41c.07-1.12-.89-1.79-2.31-1.86c-1.49-.09-2.53.43-2.53 1.63z" fill="#fcc12b"></path><path d="M65.61 21.73c1.43 1.55 3.57-.52 4.32-1.49c.74-.97.89-2.46.07-3.2c-.82-.74-2.38.07-3.42 1.04s-1.86 2.68-.97 3.65z" fill="#fcc12b"></path><path d="M81.76 13.84c1.74 1.97 4.61-1.34 5.8-2.46c1.19-1.12 2.16-2.68 1.04-3.94c-1.12-1.26-3.65.52-4.61 1.64c-.97 1.11-3.35 3.5-2.23 4.76z" fill="#fcc12b"></path><path d="M26.92 47.25c1.69.4 2.24-1.6 2.53-3.13c.3-1.56.3-3.05-.97-3.27c-1.44-.25-2.23 1.19-2.46 2.6c-.19 1.27-.66 3.43.9 3.8z" fill="#fcc12b"></path></svg>';
+        return 'eicon-post-list';
     }
     public function get_categories(){
         return ['basic'];
     }
-    protected function is_dynamic_content(): bool {
-        return true;
+    public function get_style_depends() {
+        return [ 'menu-item-style' ];
     }
-    public function has_widget_inner_wrapper(){
-        return false;
+    public function get_script_depends(): array {
+        return [ 'menu-item-script' ];
     }
     protected function register_controls(){
         $this->start_controls_section(
             'products_items_grid_template',
             [
                 'label' => esc_html__( 'item template column', 'restaurant-menu' ),
-                'tab' => \Elementor\Controls_Manager::TAB_Style,
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
         $this->add_responsive_control(
@@ -126,7 +124,7 @@ Class Menu_Items_Widget extends Elemetor\Widget_Base{
         $this->add_control(
             'menu_item_card_padding',
             [
-                'label' => esc_htmlesc_html__( 'menu item card padding', 'restaurant-menu' ),
+                'label' => esc_html__( 'menu item card padding', 'restaurant-menu' ),
                 'type' => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', 'em', '%' ],
                 'selectors' => [
@@ -441,7 +439,7 @@ Class Menu_Items_Widget extends Elemetor\Widget_Base{
                 'name' => 'category_active_item_background',
                 'label' => esc_html__('category active item background','restaurant-menu'),
                 'types' => [ 'classic', 'gradient' ],
-                'selector' => '{{WRAPPER}} .category-item',
+                'selector' => '{{WRAPPER}} .category-item.active',
             ]
         );
         $this->add_responsive_control(
@@ -458,7 +456,7 @@ Class Menu_Items_Widget extends Elemetor\Widget_Base{
         $this->add_control(
             'category_items_padding',
             [
-                'label' => esc_htmlesc_html__( 'category items padding', 'restaurant-menu' ),
+                'label' => esc_html__( 'category items padding', 'restaurant-menu' ),
                 'type' => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', 'em', '%' ],
                 'selectors' => [
@@ -492,14 +490,13 @@ Class Menu_Items_Widget extends Elemetor\Widget_Base{
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'default' => '#000000',
                 'selectors' => [
-                    '{{WRAPPER}} .category-item' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .category-item.active' => 'color: {{VALUE}};',
                 ],
             ]
         );
         $this->end_controls_section();
     }
     protected function render() {
-        wp_enqueue_style('menu-item-style');
         $categories = get_terms([
             'taxonomy'   => 'product_cat',
             'hide_empty' => true,
@@ -542,15 +539,12 @@ Class Menu_Items_Widget extends Elemetor\Widget_Base{
                         <?php foreach ( $products as $product ) :
                             $image_url   = wp_get_attachment_image_url( $product->get_image_id(), 'medium' );
                             $price_html  = $product->get_price_html();
-                            $permalink   = $product->get_permalink();
                             $title       = $product->get_name();
-                            $description = $product->get_short_description();
+                            $description = $product->get_description();
                             ?>
                             <article class="product-item">
                                 <div class="product-item__image">
-                                    <a href="<?php echo esc_url( $permalink ); ?>">
-                                        <img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $title ); ?>">
-                                    </a>
+                                    <img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $title ); ?>">
                                 </div>
                                 <div class="product-item__content">
                                     <h4 class="product-item__title"><?php echo esc_html( $title ); ?></h4>
@@ -558,7 +552,18 @@ Class Menu_Items_Widget extends Elemetor\Widget_Base{
                                     <div class="product-item__buying-detail">
                                         <span class="product-item__price"><?php echo wp_kses_post( $price_html ); ?></span>
                                         <span class="product-item__cart-icon">
-                                        <?php echo do_shortcode( '[add_to_cart id="' . $product->get_id() . '" show_price="false"]' ); ?>
+                                         <a href="<?php echo esc_url( '?add-to-cart=' . $product->get_id() ); ?>"
+                                            data-quantity="1"
+                                            data-product_id="<?php echo esc_attr( $product->get_id() ); ?>"
+                                            class="add_to_cart_button ajax_add_to_cart add-to-cart-svg"
+                                            aria-label="<?php echo esc_attr( $product->add_to_cart_description() ); ?>">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M8.7499 13C8.7499 12.5858 8.41412 12.25 7.9999 12.25C7.58569 12.25 7.2499 12.5858 7.2499 13V17C7.2499 17.4142 7.58569 17.75 7.9999 17.75C8.41412 17.75 8.7499 17.4142 8.7499 17V13Z"/>
+                                                    <path d="M15.9999 12.25C16.4141 12.25 16.7499 12.5858 16.7499 13V17C16.7499 17.4142 16.4141 17.75 15.9999 17.75C15.5857 17.75 15.2499 17.4142 15.2499 17V13C15.2499 12.5858 15.5857 12.25 15.9999 12.25Z" />
+                                                    <path d="M12.7499 13C12.7499 12.5858 12.4141 12.25 11.9999 12.25C11.5857 12.25 11.2499 12.5858 11.2499 13V17C11.2499 17.4142 11.5857 17.75 11.9999 17.75C12.4141 17.75 12.7499 17.4142 12.7499 17V13Z" />
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2737 3.47298C16.7981 3.28712 16.2654 3.25574 15.5819 3.25077C15.3012 2.65912 14.6983 2.25 13.9999 2.25H9.9999C9.3015 2.25 8.69865 2.65912 8.41794 3.25077C7.7344 3.25574 7.20166 3.28712 6.72611 3.47298C6.15792 3.69505 5.66371 4.07255 5.29999 4.5623C4.93306 5.05639 4.76082 5.68968 4.52374 6.56133L3.89587 8.86426C3.50837 9.06269 3.16928 9.32992 2.88642 9.6922C2.26442 10.4888 2.15427 11.4377 2.26492 12.5261C2.37229 13.5822 2.70479 14.9121 3.121 16.5769L3.1474 16.6825C3.41058 17.7353 3.62426 18.5901 3.8784 19.2572C4.14337 19.9527 4.47977 20.5227 5.03439 20.9558C5.58901 21.3888 6.22365 21.5769 6.96266 21.6653C7.67148 21.75 8.55256 21.75 9.63774 21.75H14.362C15.4472 21.75 16.3282 21.75 17.0371 21.6653C17.7761 21.5769 18.4107 21.3888 18.9653 20.9558C19.5199 20.5227 19.8563 19.9527 20.1213 19.2572C20.3755 18.5901 20.5891 17.7353 20.8523 16.6825L20.8787 16.577C21.2949 14.9122 21.6274 13.5822 21.7348 12.5261C21.8454 11.4377 21.7353 10.4888 21.1133 9.6922C20.8305 9.32995 20.4914 9.06274 20.104 8.86431L19.4761 6.56133C19.239 5.68968 19.0667 5.05639 18.6998 4.5623C18.3361 4.07255 17.8419 3.69505 17.2737 3.47298ZM7.27214 4.87007C7.49194 4.78416 7.75752 4.75888 8.41935 4.75219C8.70067 5.34225 9.30267 5.75 9.9999 5.75H13.9999C14.6971 5.75 15.2991 5.34225 15.5805 4.75219C16.2423 4.75888 16.5079 4.78416 16.7277 4.87007C17.0336 4.98964 17.2997 5.19291 17.4956 5.45663C17.6717 5.69377 17.775 6.02508 18.0659 7.09194L18.4195 8.3887C17.3817 8.24996 16.0419 8.24998 14.3773 8.25H9.62246C7.95788 8.24998 6.61809 8.24996 5.5803 8.38868L5.93388 7.09195C6.22478 6.02508 6.32812 5.69376 6.50423 5.45662C6.70008 5.19291 6.96619 4.98964 7.27214 4.87007ZM9.9999 3.75C9.86183 3.75 9.7499 3.86193 9.7499 4C9.7499 4.13807 9.86183 4.25 9.9999 4.25H13.9999C14.138 4.25 14.2499 4.13807 14.2499 4C14.2499 3.86193 14.138 3.75 13.9999 3.75H9.9999ZM4.06873 10.6153C4.34756 10.2582 4.78854 10.0183 5.69971 9.88649C6.63034 9.75187 7.89217 9.75 9.68452 9.75H14.3152C16.1075 9.75 17.3694 9.75187 18.3 9.88649C19.2112 10.0183 19.6522 10.2582 19.931 10.6153C20.2098 10.9725 20.3356 11.4584 20.2425 12.3744C20.1474 13.3099 19.8432 14.5345 19.4084 16.2733C19.1312 17.3824 18.9381 18.1496 18.7196 18.7231C18.5083 19.2778 18.3014 19.5711 18.0422 19.7735C17.783 19.9758 17.4483 20.1054 16.859 20.1759C16.2496 20.2488 15.4584 20.25 14.3152 20.25H9.68452C8.54133 20.25 7.75015 20.2488 7.14076 20.1759C6.5514 20.1054 6.21667 19.9758 5.95751 19.7735C5.69835 19.5711 5.49144 19.2778 5.28013 18.7231C5.06163 18.1496 4.86853 17.3824 4.59127 16.2733C4.15656 14.5345 3.85233 13.3099 3.75723 12.3744C3.66411 11.4584 3.78989 10.9725 4.06873 10.6153Z"/>
+                                                </svg>
+                                         </a>
                                     </span>
                                     </div>
                                 </div>
