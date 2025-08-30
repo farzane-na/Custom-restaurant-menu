@@ -498,4 +498,77 @@ Class Menu_Items_Widget extends Elemetor\Widget_Base{
         );
         $this->end_controls_section();
     }
+    protected function render() {
+        wp_enqueue_style('menu-item-style');
+        $categories = get_terms([
+            'taxonomy'   => 'product_cat',
+            'hide_empty' => true,
+        ]);
+
+        if ( empty($categories) || is_wp_error($categories) ) {
+            return;
+        }
+        ?>
+
+        <ul class="category-items">
+            <?php foreach ( $categories as $category ) :
+                $thumbnail_id = get_term_meta( $category->term_id, 'thumbnail_id', true );
+                $image_url    = $thumbnail_id ? wp_get_attachment_url( $thumbnail_id ) : wc_placeholder_img_src();
+                ?>
+                <li class="category-item">
+                <span class="category-item__image">
+                    <img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $category->name ); ?>">
+                </span>
+                    <span class="category-item__title"><?php echo esc_html( $category->name ); ?></span>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+
+        <div class="menu-items">
+            <?php foreach ( $categories as $category ) :
+                $products = wc_get_products([
+                    'status'   => 'publish',
+                    'limit'    => -1,
+                    'category' => [ $category->slug ],
+                ]);
+
+                if ( empty( $products ) ) {
+                    continue;
+                }
+                ?>
+                <div class="category-box">
+                    <h3 class="category-title"><?php echo esc_html( $category->name ); ?></h3>
+                    <div class="products-item">
+                        <?php foreach ( $products as $product ) :
+                            $image_url   = wp_get_attachment_image_url( $product->get_image_id(), 'medium' );
+                            $price_html  = $product->get_price_html();
+                            $permalink   = $product->get_permalink();
+                            $title       = $product->get_name();
+                            $description = $product->get_short_description();
+                            ?>
+                            <article class="product-item">
+                                <div class="product-item__image">
+                                    <a href="<?php echo esc_url( $permalink ); ?>">
+                                        <img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $title ); ?>">
+                                    </a>
+                                </div>
+                                <div class="product-item__content">
+                                    <h4 class="product-item__title"><?php echo esc_html( $title ); ?></h4>
+                                    <p class="product-item__details"><?php echo wp_kses_post( $description ); ?></p>
+                                    <div class="product-item__buying-detail">
+                                        <span class="product-item__price"><?php echo wp_kses_post( $price_html ); ?></span>
+                                        <span class="product-item__cart-icon">
+                                        <?php echo do_shortcode( '[add_to_cart id="' . $product->get_id() . '" show_price="false"]' ); ?>
+                                    </span>
+                                    </div>
+                                </div>
+                            </article>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+        <?php
+    }
 }

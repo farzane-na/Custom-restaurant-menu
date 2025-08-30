@@ -64,5 +64,15 @@ function restaurant_menu_init_elementor_widgets() {
 }
 add_action( 'elementor/init', 'restaurant_menu_init_elementor_widgets' );
 
+function menu_item_stylesheet() {
 
-deactivate_plugins( plugin_basename( __FILE__ ) );
+    wp_register_style(
+        'menu-item-style',
+        plugin_dir_url(__FILE__) . 'assets/css/app.css',
+        [],
+        '1.0.0'
+    );
+}
+add_action('wp_enqueue_scripts', 'menu_item_stylesheet');
+
+//deactivate_plugins( plugin_basename( __FILE__ ) );
