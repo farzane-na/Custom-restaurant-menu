@@ -31,12 +31,18 @@ The active category in the header automatically highlights as you scroll through
 ---
 
 ## 🚀 Installation
-
+### Method 1: Direct Installation
 1. Download or clone this repository.
 2. Upload the folder `custom-restaurant-menu` into your WordPress `wp-content/plugins/` directory.
 3. Go to **WordPress Dashboard → Plugins** and activate **Custom Restaurant Menu**.
 4. Make sure **WooCommerce** and **Elementor** are active.
 
+### Method 2: Via Git
+
+```bash
+cd wp-content/plugins/
+git clone https://github.com/farzane-na/Custom-restaurant-menu custom-elementor-widget
+```
 ---
 
 ## 🛠 Usage
